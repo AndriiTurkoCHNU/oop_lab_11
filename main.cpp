@@ -1,24 +1,28 @@
 #include <iostream>
 #include <thread>
 
+int counter = 0;
 
+int get_id() {
+    std::hash<std::thread::id> hasher;
+
+    return static_cast<int>(hasher(std::this_thread::get_id()));
+}
 
 int main() {
-    int num1 = 2, num2 = 3, num3 = 4;
-
-    std::thread t1([num1]() {
-        int result = num1 * num1;
-        std::cout << "Square of " << num1 << " is " << result << std::endl;
+    std::thread t1([]() {
+        counter += get_id();
+        std::cout << "Thread 1 counter: " << counter << std::endl;
     });
 
-    std::thread t2([num2]() {
-        int result = num2 * num2;
-        std::cout << "Square of " << num2 << " is " << result << std::endl;
+    std::thread t2([]() {
+        counter += get_id();
+        std::cout << "Thread 2 counter: " << counter << std::endl;
     });
 
-    std::thread t3([num3]() {
-        int result = num3 * num3;
-        std::cout << "Square of " << num3 << " is " << result << std::endl;
+    std::thread t3([]() {
+        counter += get_id();
+        std::cout << "Thread 3 counter: " << counter << std::endl;
     });
 
     t1.join();
