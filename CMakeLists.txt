@@ -3,4 +3,4 @@ project(oop_lab_11)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(oop_lab_11 task_4.cpp)
+add_executable(oop_lab_11 task_5.cpp SafeQueue.h)
